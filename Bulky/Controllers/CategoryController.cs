@@ -1,4 +1,5 @@
 ﻿using Bulky.DataAccess.Data;
+using Bulky.DataAccess.Repositorie.IRepository;
 using Bulky.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,17 +8,17 @@ namespace Bulky.Controllers
 	public class CategoryController : Controller
 	{
 		//proprieter de type applicationDbcontext creer et en lecture seul
-		private readonly ApplicationDbContext _context;
+		private readonly ICategoriesRepository _caterepos;
 
 		//constructeur
-		public CategoryController(ApplicationDbContext db) 
-		{ 
-			_context = db;
+		public CategoryController(ICategoriesRepository caterepos) 
+		{
+			_caterepos = caterepos;
 		}
 		public IActionResult Index()
 		{
 			//recuperation de toutes les categories dans une liste
-			List<Category> categorieslist = _context.Categories.ToList();
+			List<Category> categorieslist = _caterepos.GetAll().ToList();
 
 			return View(categorieslist);
 		}
@@ -30,8 +31,8 @@ namespace Bulky.Controllers
 		public IActionResult Create(Category cat)
 		{
 			if (ModelState.IsValid) {
-				_context.Categories.Add(cat);
-				_context.SaveChanges();
+				_caterepos.Add(cat);
+				_caterepos.Save();
 				TempData["success"] = "Category created successfully";
 				return RedirectToAction("Index");
 			}
@@ -46,14 +47,14 @@ namespace Bulky.Controllers
 			}
 			//Recuperation de la category
 			//La methode find ne fonctionne que sur la cle primaire
-			Category? catedit = _context.Categories.Find(id);
+			//Category? catedit = _context.Categories.Find(id);
 			//La methode FirstOrDefault fonctionne avec autre propriete que id
-			Category? catedit1 = _context.Categories.FirstOrDefault(u=>u.categoryId == id);
-			if (catedit == null)
+			Category? catedit1 = _caterepos.Get(u => u.categoryId == id);
+			if (catedit1 == null)
 			{
 				return NotFound();
 			}
-			return View(catedit); 
+			return View(catedit1); 
 		
 		}
 
@@ -62,8 +63,8 @@ namespace Bulky.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_context.Categories.Update(cat);
-				_context.SaveChanges();
+				_caterepos.Update(cat);
+				_caterepos.Save();
 				TempData["success"] = "Category updated successfully";
 				return RedirectToAction("Index");
 			}
@@ -78,27 +79,27 @@ namespace Bulky.Controllers
 			}
 			//Recuperation de la category
 			//La methode find ne fonctionne que sur la cle primaire
-			Category? catedit = _context.Categories.Find(id);
+			//Category? catedit = _caterepos.Remove(id);
 			//La methode FirstOrDefault fonctionne avec autre propriete que id
-			//Category? catedit1 = _context.Categories.FirstOrDefault(u => u.categoryId == id);
-			if (catedit == null)
+			Category? catedit1 = _caterepos.Get(u => u.categoryId == id);
+			if (catedit1 == null)
 			{
 				return NotFound();
 			}
-			return View(catedit);
+			return View(catedit1);
 
 		}
 
 		[HttpPost, ActionName("Delete")]
 		public IActionResult DeletePost(int? id)
 		{
-			Category? cat = _context.Categories.Find(id);
+			Category? cat = _caterepos.Get(u => u.categoryId == id);
 			if (cat == null)
 			{
 				return NotFound();
 			}
-			_context.Categories.Remove(cat);
-				_context.SaveChanges();
+			_caterepos.Remove(cat);
+			_caterepos.Save();
 			TempData["success"] = "Category deleted successfully";
 			return RedirectToAction("Index");
 	

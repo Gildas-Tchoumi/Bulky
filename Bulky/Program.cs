@@ -1,4 +1,6 @@
 using Bulky.DataAccess.Data;
+using Bulky.DataAccess.Repositorie;
+using Bulky.DataAccess.Repositorie.IRepository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bulky
@@ -14,6 +16,9 @@ namespace Bulky
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+			//injection de dependance(repository)
+			builder.Services.AddScoped<ICategoriesRepository, CategoryRepository>();
 
 			var app = builder.Build();
 
