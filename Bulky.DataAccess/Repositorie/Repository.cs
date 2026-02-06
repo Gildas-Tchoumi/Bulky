@@ -19,26 +19,50 @@ namespace Bulky.DataAccess.Repositorie
 		{
 			_db = db;
 			this.dbset = _db.Set<T>();
+			//appliquons la logie de fonctionnement de inclide avec notre context et ajoute cela a la methode getall
+
+			_db.Products.Include(u => u.Category);
+			// definir les inclusions par defaut pour chaque entite
+			//_db.Products.Include(u => u.Category).Include(u => u.Category).Include();
 		}
 		public void Add(T entity)
 		{
 			 dbset.Add(entity);
 		}
 
-		public T Get(Expression<Func<T, bool>> filter)
+		public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null)
 		{
 			//preparer une requete
 			IQueryable<T> query = dbset;
+
+			//ajouter les proprietees a inclure
+			if (!string.IsNullOrEmpty(includeProperties))
+			{
+				//parcourir les proprietees a inclure ,les separer par une virgule et les ajouter a la requete
+				foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(includeProp);
+				}
+			}
 			//ajouter un filtre ou une condition 
 			query = query.Where(filter);
 			// executer la requete et retourner le premier element trouver
 			return query.FirstOrDefault();
 		}
 
-		public IEnumerable<T> GetAll()
+		//NB: ajouter aussi la proprietee includeProperties dans l'interface IRepository
+		public IEnumerable<T> GetAll(string? includeProperties = null)
 		{
 			//preparer une requete
 			IQueryable<T> query = dbset;
+			//ajouter les proprietees a inclure
+			if (!string.IsNullOrEmpty(includeProperties))
+			{
+				foreach (var includeProp in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+				{
+					query = query.Include(includeProp);
+				}
+			}
 			// executer la requete et retourner le premier element trouver
 			return query.ToList();
 		}

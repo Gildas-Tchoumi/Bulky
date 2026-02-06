@@ -1,0 +1,110 @@
+﻿@* caputere de la variable passer a la vue au niveau du controller *@
+
+@model List<Product>
+
+<div class="card shadow border-0 my-5">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary">
+                    List of Product
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 ">
+
+        <div class="float-end">
+            <div class="col-12">
+                <a class="btn btn-outline-info my-2 rounded-1" asp-area="Admin" asp-controller="Product" asp-action="Upsert">
+                    <i class="bi bi-plus-circle"></i> Add
+                </a>
+            </div>
+
+        </div>
+
+        <table id="tlbTable" class="table table-bodered table-striped" style="width:100%">
+            <thead>
+                <tr>      
+                    @* <th>ID</th> *@
+                    <th>Title</th>
+                    <th>ISBN</th>
+                    <th>Author</th>
+                    <th>ListPrice</th>
+                    <th>Price</th>
+                    <th>Price50</th>
+                    <th>Price100</th>
+                    <th>Category</th>
+                    <th class="">Actions</th>
+                </tr>
+            </thead>
+            @* <tbody id="accountsTableBody">
+                @foreach (var items in Model.OrderBy(u => u.Id))
+                {
+                    <tr>
+                        <td class="fw-semibold">@items.Id</td>
+                        <td>@items.Title</td>
+                       
+                        <td>@items.ISBN</td>
+                        <td>@items.Author</td>
+                        <td>@items.ListPrice</td>
+                        <td>@items.Price</td>
+                        <td>@items.Price50</td>
+                        <td>@items.Price100</td>
+                        <td>@items.Category.Name</td>
+                        <td class="d-flex">
+                            
+                            <a class="text-info" asp-area="Admin" asp-controller="Product" asp-action="Upsert" asp-route-id="@items.Id">
+                                <i class="bi bi-pen-fill"></i>
+                            </a>
+                            <a class="mx-3 text-danger" asp-area="Admin" asp-controller="Product" asp-action="Delete" asp-route-id="@items.Id">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody> *@
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/product.js"></script>
+    @* <script type="text/javascript">
+        $(document).ready(function () {
+            var dataTable = $('#tlbTable').DataTable({
+                "ajax": {
+                    "url": "/Admin/Product/GetAll"
+                },
+                "columns": [
+                    { "data": "id", "width": "5%" },
+                    { "data": "title", "width": "15%" },
+                    { "data": "isbn", "width": "10%" },
+                    { "data": "author", "width": "10%" },
+                    { "data": "listPrice", "width": "10%" },
+                    { "data": "price", "width": "10%" },
+                    { "data": "price50", "width": "10%" },
+                    { "data": "price100", "width": "10%" },
+                    { "data": "category.name", "width": "10%" },
+                    {
+                        "data": "id",
+                        "render": function (data) {
+                            return `
+                                <div class="d-flex">
+                                    <a class="text-info" href="/Admin/Product/Upsert/${data}">
+                                        <i class="bi bi-pen-fill"></i>
+                                    </a>
+                                    <a class="mx-3 text-danger" href="/Admin/Product/Delete/${data}">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            `;
+                        },
+                        "width": "10%"
+                    }
+                ]
+            });
+        });
+    </script> *@
+}
