@@ -1,11 +1,15 @@
 ﻿using Bulky.DataAccess.Data;
 using Bulky.DataAccess.Repositorie.IRepository;
 using Bulky.Models;
+using Bulky.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Bulky.web.Areas.Admin.Controllers
 {
 	[Area("Admin")]
+
+	[Authorize(Roles = SD.Role_Admin)]
 	public class CategoryController : Controller
 	{
 		//proprieter de type applicationDbcontext creer et en lecture seul

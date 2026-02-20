@@ -3,6 +3,8 @@ using Bulky.DataAccess.Repositorie;
 using Bulky.DataAccess.Repositorie.IRepository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Bulky.Utility;
 
 namespace Bulky
 {
@@ -18,14 +20,25 @@ namespace Bulky
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-			// option pour la confirmation d'email avant de se logger : options => options.SignIn.RequireConfirmedAccount = true
-			builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+            // option pour la confirmation d'email avant de se logger : options => options.SignIn.RequireConfirmedAccount = true
+            builder.Services.AddIdentity < IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+			//redirection vers les pages de login,access...(Toujours apres l'ajout de identity)
+			builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
 
 			//injection de dependance(repository)
 			builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-            // service de gestion des page razor
-            builder.Services.AddRazorPages();
+			//injection de dependance pour l'envoi d'email
+			builder.Services.AddScoped<IEmailSender, EmailSender>();
+
+			// service de gestion des page razor
+			builder.Services.AddRazorPages();
 
 			var app = builder.Build();
 

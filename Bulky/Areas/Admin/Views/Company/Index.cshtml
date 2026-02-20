@@ -1,0 +1,49 @@
+﻿@* caputere de la variable passer a la vue au niveau du controller *@
+
+@model List<Company>
+
+<div class="card shadow border-0 my-5">
+    <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-primary">
+                    List of Company
+                </h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 ">
+
+        <div class="float-end">
+            <div class="col-12">
+                <a class="btn btn-outline-info my-2 rounded-1" asp-area="Admin" asp-controller="Company" asp-action="Upsert">
+                    <i class="bi bi-plus-circle"></i> Add
+                </a>
+            </div>
+
+        </div>
+
+        <table id="companyTable" class="table table-bodered table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    @* <th>ID</th> *@
+                    <th>Name</th>
+                    <th>StreeAddress</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>PostalCode</th>
+                    <th>PhoneNumber</th>
+                    @* <th>Price100</th>
+                    <th>Category</th> *@
+                    <th class="">Actions</th>
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src=""></script>
+  
+}
