@@ -1,60 +1,59 @@
-﻿@model Bulky.Models.Company
+﻿@model Bulky.Models.ViewModels.CompanyVM
 
 <div class="card shadow border-0 my-5">
     <div class="card-header bg-secondary bg-gradient m-lg-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="text-primary">
-                    @( Model.Id == 0 ? "Create" : "Edit") Company
+                    @( Model.Company.Id == 0 ? "Create" : "Edit") Company
                 </h2>
             </div>
         </div>
     </div>
     <div class="card-body p-4">
         <form action="Upsert" method="post" class="row" enctype="multipart/form-data">
-            <input asp-for="Id" hidden />
-            
+            <input asp-for="Company.Id" hidden />
             <div class="row">
                 <div class="col-10">
                     <div class="border p-3">
                         <div class="form-floating py-2 col-12">
-                            <input asp-for="Name" class="form-control shadow border-0" />
-                            <label asp-for="Name" class="ms-2"></label>
-                            <span asp-validation-for="Name" class="text-danger"></span>
+                            <input asp-for="Company.Name" class="form-control shadow border-0" />
+                            <label asp-for="Company.Name" class="ms-2"></label>
+                            <span asp-validation-for="Company.Name" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             @* <label class="p-0">Display Order</label> *@
-                            <input asp-for="StreeAddress" class="form-control shadow border-0" />
-                            <label asp-for="StreeAddress" class="ms-2"></label>
-                            <span asp-validation-for="StreeAddress" class="text-danger"></span>
+                            <input asp-for="Company.StreeAddress" class="form-control shadow border-0" />
+                            <label asp-for="Company.StreeAddress" class="ms-2"></label>
+                            <span asp-validation-for="Company.StreeAddress" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             @* <label class="p-0">Display Order</label> *@
-                            <input asp-for="City" class="form-control shadow border-0" />
-                            <label asp-for="City" class="ms-2"></label>
-                            <span asp-validation-for="City" class="text-danger"></span>
+                            <input asp-for="Company.City" class="form-control shadow border-0" />
+                            <label asp-for="Company.City" class="ms-2"></label>
+                            <span asp-validation-for="Company.City" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             @* <label class="p-0">Display Order</label> *@
-                            <input asp-for="State" class="form-control shadow border-0" />
-                            <label asp-for="State" class="ms-2"></label>
-                            <span asp-validation-for="State" class="text-danger"></span>
+                            <input asp-for="Company.State" class="form-control shadow border-0" />
+                            <label asp-for="Company.State" class="ms-2"></label>
+                            <span asp-validation-for="Company.State" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             @* <label class="p-0">Display Order</label> *@
-                            <input asp-for="PostalCode" class="form-control shadow border-0" />
-                            <label asp-for="PostalCode" class="ms-2"></label>
-                            <span asp-validation-for="PostalCode" class="text-danger"></span>
+                            <input asp-for="Company.PostalCode" class="form-control shadow border-0" />
+                            <label asp-for="Company.PostalCode" class="ms-2"></label>
+                            <span asp-validation-for="Company.PostalCode" class="text-danger"></span>
                         </div>
                         <div class="form-floating py-2 col-12">
                             @* <label class="p-0">Display Order</label> *@
-                            <input asp-for="PhoneNumber" class="form-control shadow border-0" />
-                            <label asp-for="PhoneNumber" class="ms-2"></label>
-                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                            <input asp-for="Company.PhoneNumber" class="form-control shadow border-0" />
+                            <label asp-for="Company.PhoneNumber" class="ms-2"></label>
+                            <span asp-validation-for="Company.PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="row">
                             <div class="col-6 col-md-3">
-                                @if (Model.Id == 0)
+                                @if (Model.Company.Id == 0)
                                 {
                                     <button type="submit" class="btn btn-primary form-control">create</button>
 

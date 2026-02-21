@@ -1,5 +1,4 @@
-﻿
-//initialisation de la table de données DataTable pour afficher les produits 
+﻿//initialisation de la table de données DataTable pour afficher les produits 
 var dataTable;
 
 $(document).ready(function () {
@@ -8,27 +7,27 @@ $(document).ready(function () {
 
 function loadDataTable() {
     console.log("test");
-    dataTable = $('#tlbTable').DataTable({
-        "ajax": { url:'/admin/product/getall' },
+    dataTable = $('#companyTable').DataTable({
+        "ajax": { url:'/admin/company/getall' },
         "columns": [
             //{ data: 'id', "width": "5%" },
-            { data: 'title', "width": "15%" },
-            { data: 'isbn', "width": "10%" },
-            { data: 'author', "width": "10%" },
-            { data: 'listPrice', "width": "10%" },
-            { data: 'price', "width": "10%" },
-            { data: 'price50', "width": "10%" },
-            { data: 'price100', "width": "10%" },
-            { data: 'category.name', "width": "10%" },
+            { data: 'name', "width": "15%" },
+            { data: 'streeAddress', "width": "10%" },
+            { data: 'city', "width": "10%" },
+            { data: 'state', "width": "10%" },
+            { data: 'postalCode', "width": "10%" },
+            { data: 'phoneNumber', "width": "10%" },
+            //{ data: 'price100', "width": "10%" },
+            //{ data: 'category.name', "width": "10%" },
             {
                 data: 'id',
                 "render": function (data) {
                     return `
                             <div class="d-flex">
-                                    <a class="text-info" href="/Admin/Product/upsert?Id=${data}">
+                                    <a class="text-info" href="/Admin/Company/upsert?Id=${data}">
                                         <i class="bi bi-pen-fill"></i>
                                     </a>
-                                    <a class="mx-3 text-danger" onClick=Delete('/Admin/Product/delete/${data}')>
+                                    <a class="mx-3 text-danger" onClick=Delete('/Admin/Company/delete/${data}')>
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
